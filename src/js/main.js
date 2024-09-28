@@ -31,11 +31,31 @@ $(document).ready(function() {
         $(botao).find('i').addClass('d-none');
         $(botao).find('span').removeClass('d-none');
 
-        $.ajax(endpoint).done(function(resposta){
-            const logradouro = resposta.logradouro;
-            const bairro = resposta.bairro;
-            const cidade = resposta.localidade;
-            const estado = resposta.uf;
+        // $.ajax(endpoint).done(function(resposta){
+        //     const logradouro = resposta.logradouro;
+        //     const bairro = resposta.bairro;
+        //     const cidade = resposta.localidade;
+        //     const estado = resposta.uf;
+
+        //     const endereco = `${logradouro}, ${bairro}, ${cidade}, ${estado}`;
+
+        //     setTimeout(function(){
+        //         $('#endereco').val(endereco);
+        //         $(botao).find('i').removeClass('d-none');
+        //         $(botao).find('span').addClass('d-none');
+        //     }, 1000);
+        // });
+
+
+
+        fetch(endpoint).then(function(respota){
+            return respota.json();
+        })
+        .then(function(json){
+            const logradouro = json.logradouro;
+            const bairro = json.bairro;
+            const cidade = json.localidade;
+            const estado = json.uf;
 
             const endereco = `${logradouro}, ${bairro}, ${cidade}, ${estado}`;
 
@@ -44,6 +64,7 @@ $(document).ready(function() {
                 $(botao).find('i').removeClass('d-none');
                 $(botao).find('span').addClass('d-none');
             }, 1000);
+
         });
     });
 });
