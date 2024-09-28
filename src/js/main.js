@@ -56,15 +56,27 @@ $(document).ready(function() {
             const bairro = json.bairro;
             const cidade = json.localidade;
             const estado = json.uf;
+            const erro = json.erro;
 
             const endereco = `${logradouro}, ${bairro}, ${cidade}, ${estado}`;
 
+            if(erro === "true"){
+                alert("O CEP inserido é inválido, verifique e insira novamente.")
+            }else{
+                setTimeout(function(){
+                    $('#endereco').val(endereco);
+                }, 1000);
+            }
+
+        })
+        .catch(function(){
+            alert("Ocorreu um erro ao buscar o endereço, tente novamente")
+        })
+        .finally(function(){
             setTimeout(function(){
-                $('#endereco').val(endereco);
                 $(botao).find('i').removeClass('d-none');
                 $(botao).find('span').addClass('d-none');
             }, 1000);
-
-        });
+        })
     });
 });
